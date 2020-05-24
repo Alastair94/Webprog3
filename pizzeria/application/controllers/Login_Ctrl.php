@@ -1,14 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_Ctrl extends CI_Controller{
     
     public function __construct() {
         parent::__construct();
-        $this->load->helper('url'); 
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->load->library('session');
         $this->load->model('login_mdl');
         $this->load->model('user_info_mdl');
     }
@@ -16,6 +13,7 @@ class Login_Ctrl extends CI_Controller{
 
     public function index(){
         $d['v'] = 'login_form';
+        $d['title'] = "Login";
         $this->load->view('init', $d);
     }
     
@@ -25,7 +23,8 @@ class Login_Ctrl extends CI_Controller{
        
         if($this->form_validation->run() == FALSE){
             if(isset($this->session->userdata['logged_in'])){
-                $this->load->view('admin_page');
+                $data['v'] = 'profile'; 
+                $this->load->view('init',$data);
             }
             else{
                 $data['v'] = 'login_form'; 
@@ -44,11 +43,14 @@ class Login_Ctrl extends CI_Controller{
                 if($result != FALSE){
                     $session_data = array(
                         'username' => $result[0]->user_name,
-                        'email' => $result[0]->user_email
+                        'email' => $result[0]->user_email,
+                        'user_role' => $result[0]->user_role
                     );
                     
-                    $this->session->set_userdata('logged_in', $session_data);
-                    $this->load->view('admin_page');
+                    $this->session->set_userdata('logged_in',$session_data);
+                    $data['v'] = 'profile'; 
+                    $data['title'] = 'Profile';
+                    $this->load->view('init',$data);
                 }
             }
             else{
@@ -63,10 +65,13 @@ class Login_Ctrl extends CI_Controller{
     
     public function logout(){
         $sess_array = array(
-            'username' => ''
+            'username' => '',
+            'email' => '',
+            'user_role' => ''
         );
         $this->session->unset_userdata('logged_in', $sess_array);
-        $data['message_display'] = 'Successfully Logout!';
+        $this->session->sess_destroy('logged_in');
+        $data['logout_message'] = 'Successfully Logout!';
         $data['v'] = 'login_form'; 
         $this->load->view('init',$data);
     }

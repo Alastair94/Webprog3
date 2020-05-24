@@ -1,6 +1,6 @@
 <?php
 
-class Register_Ctrl extends CI_Controller{
+class Admin_Reg_Ctrl extends CI_Controller{
     
     public function __construct() {
         parent::__construct();
@@ -11,8 +11,8 @@ class Register_Ctrl extends CI_Controller{
 
 
     public function index(){      
-        $d['v'] = 'registration_form';
-        $d['title'] = "Registration";
+        $d['v'] = 'admin_reg_form';
+        $d['title'] = "Admin Registration";
         $this->load->view('init', $d);
     }
     
@@ -22,7 +22,7 @@ class Register_Ctrl extends CI_Controller{
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
     
         if($this->form_validation->run() == FALSE){
-            $data['v'] = 'registration_form';
+            $data['v'] = 'admin_reg_form';
             $this->load->view('init', $data);
         }
         else{
@@ -30,17 +30,17 @@ class Register_Ctrl extends CI_Controller{
                 'user_name' => $this->input->post("username"),
                 'user_email' => $this->input->post("email_value"),
                 'user_password' => $this->input->post("password"),
-                'user_role' => 'USER'
+                'user_role' => 'ADMIN'
             );
             $result = $this->register_mdl->registration_insert($data);
             if($result == TRUE){
-                echo '<script>alert("You have successfully registered! Please login!");</script>';
-                $data['v'] = 'login_form';
+                echo '<script>alert("You Have Successfully created another Admin user!");</script>';
+                $data['v'] = 'profile';
                 $this->load->view('init', $data);
             }
             else{
                 $data['message_display'] = 'Username already exists!';
-                $data['v'] = 'registration_form';
+                $data['v'] = 'admin_reg_form';
                 $this->load->view('init', $data);
             }
         }

@@ -1,6 +1,6 @@
 <?php
-    if(isset($this->session->userdata['logged_in'])){
-        header("location: " . base_url() . "Login_Ctrl/user_login_process");
+    if(!(isset($this->session->userdata['logged_in']) && ($this->session->userdata['logged_in']['user_role'] == "ADMIN"))){
+        header("location: Login_Ctrl");
     }
 ?>
 <div id="main">
@@ -11,7 +11,7 @@
             echo "<div class='error_msg'>";
             echo validation_errors();
             echo "</div>";
-            echo form_open('Register_Ctrl/new_user_registration');
+            echo form_open('Admin_Reg_Ctrl/new_user_registration');
 
             echo form_label('Create Username : ');
             echo "<br/>";
@@ -36,7 +36,7 @@
             echo form_password('password');
             echo "<br/>";
             echo "<br/>";
-            echo form_submit('submit', 'Sign Up');
+            echo form_submit('submit', 'Create');
             echo form_close();
         ?>
     </div>
