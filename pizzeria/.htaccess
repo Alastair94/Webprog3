@@ -1,0 +1,10 @@
+# Amennyiben egy mappában nem létezik nyitóállomány (index.php), akkor letiltom a mappa
+# tartalmának listázását
+Options -Indexes 
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
