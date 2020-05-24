@@ -31,7 +31,8 @@ class Register_Ctrl extends CI_Controller{
             $data = array(
                 'user_name' => $this->input->post("username"),
                 'user_email' => $this->input->post("email_value"),
-                'user_password' => $this->input->post("password")
+                'user_password' => $this->input->post("password"),
+                'user_role' => 'USER'
             );
             $result = $this->register_mdl->registration_insert($data);
             if($result == TRUE){
