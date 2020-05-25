@@ -122,3 +122,9 @@ td{
     border: #295;
     border-color: red;
 }
+th{
+    text-align: center;
+    vertical-align: middle;
+    border: #295;
+    border-color: red;
+}
