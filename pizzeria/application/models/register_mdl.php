@@ -65,4 +65,9 @@ class Register_Mdl extends CI_Model{
         $this->db->where('id', $id);
         return $this->db->delete('users');
     }
+    
+    public function delete_user_data($name){
+        $this->db->where('Username', $name);
+        return $this->db->delete('user_data');
+    }
 }

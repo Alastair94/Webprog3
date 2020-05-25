@@ -42,6 +42,7 @@ class Login_Ctrl extends CI_Controller{
                 $result = $this->user_info_mdl->read_user_information($username);
                 if($result != FALSE){
                     $session_data = array(
+                        'id' => $result[0]->id,
                         'username' => $result[0]->user_name,
                         'email' => $result[0]->user_email,
                         'user_role' => $result[0]->user_role

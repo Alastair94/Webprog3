@@ -1,11 +1,11 @@
 <?php
     if(!(isset($this->session->userdata['logged_in']) && ($this->session->userdata['logged_in']['user_role'] == "ADMIN"))){
-        header("location: Login_Ctrl");
+        redirect('Login_Ctrl');
     }
 ?>
 <div id="main" style="display: flex" >
     <div id="login">
-        <h2>Register Admin users</h2>
+        <h2>Register Admin user</h2>
         <hr/>
         <?php
             echo "<div class='error_msg'>";
@@ -58,10 +58,15 @@
             <?php foreach($users as $user): ?>
             <tr>
                 <td><?=$user->id?></td>
-                <td><?=$user->user_name?></td>
+                <td><?php if($user->user_name == $_SESSION['logged_in']['username']) :?>
+                    <b><?= $user->user_name?></b>
+                    <?php else : ?>
+                    <?= $user->user_name ?>
+                    <?php endif; ?>
+                </td>
                 <td><?=$user->user_email?></td>
                 <td><?=$user->user_role?></td>
-                <td><?php echo anchor('Admin_Reg_Ctrl/delete_user/'.$user->id,'X'); ?></td>
+                <td><?php if($user->id != $_SESSION['logged_in']['id']){ echo anchor('Admin_Reg_Ctrl/delete_user/'.$user->id,'X');} ?></td>
             </tr>
             <?php endforeach; ?>
             <?php endif;?>

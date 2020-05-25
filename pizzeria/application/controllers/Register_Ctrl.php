@@ -34,7 +34,7 @@ class Register_Ctrl extends CI_Controller{
             );
             $result = $this->register_mdl->registration_insert($data);
             if($result == TRUE){
-                $this->update_user_data();
+                $this->create_user_data();
                 echo '<script>alert("You have successfully registered! Please login!");</script>';
                 $data['v'] = 'login_form';
                 $this->load->view('init', $data);
@@ -47,7 +47,7 @@ class Register_Ctrl extends CI_Controller{
         }
     }
     
-    public function update_user_data(){
+    public function create_user_data(){
             $data = array(
             'FirstName' => '',
             'LastName' => '',
