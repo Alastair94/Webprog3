@@ -9,12 +9,16 @@ class Profile_Ctrl extends CI_Controller{
     }
     
     public function index(){
+        $data['v'] = 'profile';
+        $data['title'] = "Profile";
         $this->get_user_data();
+        $this->load->view('init',$data);
+        
     }
     
     public function get_user_data(){
-        $temp['username'] = $this->session->userdata['logged_in']['username'];
-        $result = $this->profile_mdl->get_user_data($temp);
+        $user['username'] = $this->session->userdata['logged_in']['username'];
+        $result = $this->profile_mdl->get_user_data($user);
         if($result != FALSE){
             $session_data = array(
                 'first_name' => $result[0]->FirstName,
@@ -24,14 +28,9 @@ class Profile_Ctrl extends CI_Controller{
                 'phone' => $result[0]->Phone
             );
             $this->session->set_userdata('profile',$session_data);
-            //$_SESSION['profile'] = $session_data;
-            $data['v'] = 'profile';
-            $data['title'] = "Profile";
-            $this->load->view('init',$data);
         }
         else{
-            // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-            echo "Valami" ;
+            show_error("Couldn't get the user_data!");
         }
     }
     

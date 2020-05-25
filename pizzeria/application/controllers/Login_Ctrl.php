@@ -65,12 +65,21 @@ class Login_Ctrl extends CI_Controller{
     
     public function logout(){
         $sess_array = array(
+            'id' => '',
             'username' => '',
             'email' => '',
             'user_role' => ''
         );
+        $sess_prof_array = array(
+            'first_name' => '',
+            'last_name' => '',
+            'address' => '',
+            'username' => '',
+            'phone' => ''
+        );
         $this->session->unset_userdata('logged_in', $sess_array);
-        $this->session->sess_destroy('logged_in');
+        $this->session->unset_userdata('profile', $sess_prof_array);
+        $this->session->sess_destroy();
         $data['logout_message'] = 'Successfully Logout!';
         $data['v'] = 'login_form'; 
         $this->load->view('init',$data);
