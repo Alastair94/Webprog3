@@ -36,21 +36,33 @@ class Profile_Ctrl extends CI_Controller{
     }
     
     public function update_user_data(){
+        $this->form_validation->set_rules('first_name', 'FirstName', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'LastName', 'trim|required');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         
-        //TODOOOOOOOOO
-                $data = array(
-                'FirstName' => $this->input->post("first_name"),
-                'LastName' => $this->input->post("last_name"),
-                'Address' => $this->input->post("address"),
-                'Phone' => $this->input->post("phone")
-            );
-            $result = $this->profile_mdl->insert_user_data($data);
-            
-            if($result == TRUE){
-                echo '<script>alert("You have successfully modified details of your profile!!");</script>';
-                $data['v'] = 'profile';
-                $this->load->view('init', $data);
-            
+        if($this->form_validation->run() == FALSE){
+            $data['v'] = 'profile';
+            $this->load->view('init', $data);
         }
+        
+        $data = array(
+        'FirstName' => $this->input->post("first_name"),
+        'LastName' => $this->input->post("last_name"),
+        'Address' => $this->input->post("address"),
+        'Phone' => $this->input->post("phone"),
+        'Username' => $this->session->userdata['profile']['username']
+        );
+        $result = $this->profile_mdl->update_user_data($data);
+
+        if($result == TRUE){
+            echo '<script>alert("You have successfully modified details of your profile!!");</script>';
+            redirect('Profile_Ctrl');
+        }
+    }
+    
+    public function show_profile_update(){
+        $d['v'] = 'profile_update';
+        $this->load->view('init',$d);
     }
 }

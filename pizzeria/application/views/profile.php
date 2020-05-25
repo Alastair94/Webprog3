@@ -1,8 +1,5 @@
 <?php
     if(isset($this->session->userdata['logged_in'])){
-        $username = ($this->session->userdata['logged_in']['username']);
-        $email = ($this->session->userdata['logged_in']['email']);
-        $user_role = ($this->session->userdata['logged_in']['user_role']);
     }
     else{
         header("location: Login_Ctrl");
@@ -10,7 +7,7 @@
 ?>
 <div id="profile">
     <label>Username: </label>
-    <?php if(isset($_SESSION['logged_in']['username'])){echo $_SESSION['logged_in']['username'];}else{echo "-";}?>
+    <b><i><?php if(isset($_SESSION['logged_in']['username'])){echo $_SESSION['logged_in']['username'];}else{echo "-";}?></i></b>
     <br/>
     <label>First Name: </label>
     <?php if(isset($_SESSION['profile']['first_name'])){echo $_SESSION['profile']['first_name'];}else{echo "-";}?>
@@ -25,30 +22,5 @@
     <?php if(isset($_SESSION['profile']['phone'])){echo $_SESSION['profile']['phone'];}else{echo "-";}?>
     <br/>
     
-    <?php 
-        echo form_open('Profile_Ctrl/update_user_data');
-        
-        echo form_label('First Name:');
-        echo "<br/>";
-        echo form_input('first_name');
-        echo "<br/>";
-        
-        echo form_label('Last Name:');
-        echo "<br/>";
-        echo form_input('last_name');
-        echo "<br/>";
-        
-        echo form_label('Address:');
-        echo "<br/>";
-        echo form_input('address');
-        echo "<br/>";
-        
-        echo form_label('Phone number:');
-        echo "<br/>";
-        echo form_input('phone');
-        echo "<br/>";
-        echo "<br/>";
-        echo form_submit('submit', 'Update');
-        echo form_close();
-    ?>
+    <a class="navbar-brand" href="<?php echo base_url(); ?>Profile_Ctrl/show_profile_update">Modify</a>
 </div>
