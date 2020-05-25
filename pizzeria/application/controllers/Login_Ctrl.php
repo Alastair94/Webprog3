@@ -34,7 +34,7 @@ class Login_Ctrl extends CI_Controller{
         else{
             $data = array(
                 'username' => $this->input->post('username'),
-                'password' => $this->input->post('password')
+                'password' => md5($this->input->post('password'))
             );
             $result = $this->login_mdl->login($data);
             if($result == TRUE){
