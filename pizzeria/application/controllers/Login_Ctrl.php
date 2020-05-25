@@ -48,9 +48,8 @@ class Login_Ctrl extends CI_Controller{
                     );
                     
                     $this->session->set_userdata('logged_in',$session_data);
-                    $data['v'] = 'profile'; 
-                    $data['title'] = 'Profile';
-                    $this->load->view('init',$data);
+
+                    redirect('Profile_Ctrl');
                 }
             }
             else{
