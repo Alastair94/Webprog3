@@ -8,7 +8,7 @@
                     <li><a href="Login_Ctrl/logout">Logout</a></li>
                 </ul>
                 <?php if($_SESSION['logged_in']['user_role'] == "ADMIN") : ?>
-                    <a class="navbar-brand" href="<?php echo base_url(); ?>Admin_Reg_Ctrl">Register another Admin</a>
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>Admin_Reg_Ctrl">Manage Users</a>
                 <?php endif; ?>
             <?php else : ?>
                 <div class="collapse navbar-collapse" id="myNavbar">

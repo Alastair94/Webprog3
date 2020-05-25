@@ -11,8 +11,10 @@ class Admin_Reg_Ctrl extends CI_Controller{
 
 
     public function index(){      
+        $records = $this->register_mdl->get_user_list();
         $d['v'] = 'admin_reg_form';
         $d['title'] = "Admin Registration";
+        $d['users'] = $records;
         $this->load->view('init', $d);
     }
     
@@ -44,6 +46,20 @@ class Admin_Reg_Ctrl extends CI_Controller{
                 $this->load->view('init', $data);
             }
         }
+    }
+    
+    public function delete_user($id = NULL){
+        if($id == NULL){
+            show_error("Missing id!");
+        }
+        $record = $this->register_mdl->select_by_id($id);
+        if($record = NULL){
+            show_error("There is no user with this id!");
+        }
+        
+        $this->register_mdl->delete_user($id);
+        
+        redirect('Admin_Reg_Ctrl');    
     }
 }
 ?>

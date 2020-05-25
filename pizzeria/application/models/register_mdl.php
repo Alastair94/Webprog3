@@ -1,6 +1,20 @@
 <?php
 
 class Register_Mdl extends CI_Model{
+    public function __construct(){
+        parent::__construct();
+
+    }
+    public function get_user_list(){
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->order_by('user_name');
+        
+        $query = $this->db->get();
+        $result = $query->result();
+        
+        return $result;
+    }
     
     public function registration_insert($data){
         $condition = "user_name = " . "'" . $data['user_name'] . "'";
@@ -36,5 +50,19 @@ class Register_Mdl extends CI_Model{
         else{
             return FALSE;
         }
+    }
+    
+    public function select_by_id($id){
+        $this->db->select("*");
+        $this->db->from('users');
+        $this->db->where('id', $id);
+        
+        return $this->db->get()
+                        ->row();
+    }
+    
+    public function delete_user($id){
+        $this->db->where('id', $id);
+        return $this->db->delete('users');
     }
 }

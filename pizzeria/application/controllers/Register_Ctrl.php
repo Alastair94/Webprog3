@@ -48,7 +48,6 @@ class Register_Ctrl extends CI_Controller{
     }
     
     public function update_user_data(){
-        //TODOOOOOOOOO
             $data = array(
             'FirstName' => '',
             'LastName' => '',

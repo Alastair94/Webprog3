@@ -3,9 +3,9 @@
         header("location: Login_Ctrl");
     }
 ?>
-<div id="main">
+<div id="main" style="display: flex" >
     <div id="login">
-        <h2>Registration Form</h2>
+        <h2>Register Admin users</h2>
         <hr/>
         <?php
             echo "<div class='error_msg'>";
@@ -39,5 +39,33 @@
             echo form_submit('submit', 'Create');
             echo form_close();
         ?>
+    </div>
+    <div class="border border-primary" style="margin:100px;">
+        <h2>Users</h2>
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <?php if(!empty($users)) : ?>
+            <?php foreach($users as $user): ?>
+            <tr>
+                <td><?=$user->id?></td>
+                <td><?=$user->user_name?></td>
+                <td><?=$user->user_email?></td>
+                <td><?=$user->user_role?></td>
+                <td><?php echo anchor('Admin_Reg_Ctrl/delete_user/'.$user->id,'X'); ?></td>
+            </tr>
+            <?php endforeach; ?>
+            <?php endif;?>
+        </tbody>
+    </table>
     </div>
 </div>
