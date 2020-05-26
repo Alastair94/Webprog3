@@ -1,7 +1,5 @@
 <?php
-    if(isset($this->session->userdata['logged_in'])){
-    }
-    else{
+    if(!isset($this->session->userdata['logged_in'])){
         header("location: Login_Ctrl");
     }
 ?>

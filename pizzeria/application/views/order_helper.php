@@ -1,3 +1,8 @@
+<?php
+    if(!(isset($this->session->userdata['logged_in']) && ($this->session->userdata['logged_in']['user_role'] == "ADMIN"))){
+        redirect('Login_Ctrl');
+    }
+?>
 <div style="width: 60%; margin: auto">
     <h2>Pizza List</h2>
     <table class="table">

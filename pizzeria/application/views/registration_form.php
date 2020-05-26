@@ -1,6 +1,6 @@
 <?php
     if(isset($this->session->userdata['logged_in'])){
-        header("location: " . base_url() . "Login_Ctrl/user_login_process");
+        header("location: Login_Ctrl");
     }
 ?>
 <div id="main">

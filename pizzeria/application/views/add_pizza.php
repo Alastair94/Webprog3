@@ -1,6 +1,6 @@
 <?php
-    if(!isset($this->session->userdata['logged_in'])){
-        header("location: Login_Ctrl");
+    if(!(isset($this->session->userdata['logged_in']) && ($this->session->userdata['logged_in']['user_role'] == "ADMIN"))){
+        redirect('Login_Ctrl');
     }
 ?>
 <div id="profile" style="margin: auto; width: 50%;">
