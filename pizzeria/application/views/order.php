@@ -62,6 +62,8 @@
     <div style="width: 40%; margin: auto">
         <?php
             echo form_open('Order_Ctrl/order');
+            echo form_input('message','','placeholder="Message"');
+
             echo form_submit('submit', 'Order!');
             echo form_close();
         ?>

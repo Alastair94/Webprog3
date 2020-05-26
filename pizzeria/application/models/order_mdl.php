@@ -9,6 +9,7 @@ class Order_Mdl extends CI_Model{
         $this->db->select('*');
         $this->db->from('pizzas');
         $this->db->order_by('pizza_type');
+        $this->db->order_by('pizza_size');
         
         $query = $this->db->get();
         $result = $query->result();
@@ -79,8 +80,14 @@ class Order_Mdl extends CI_Model{
     }
     
     public function create_order($data){
-        $this->db->insert('orders', $data);
-        $this->delete_incart($data['user_id']);
+        $this->db->insert('active_orders', $data);
+        $insert_id = $this->db->insert_id();
+        
+        return $insert_id;
+    }
+    
+    public function create_order_helper($data){
+        $this->db->insert('order_helper', $data);
         if($this->db->affected_rows() > 0){
             return TRUE;
         }
@@ -92,5 +99,27 @@ class Order_Mdl extends CI_Model{
     public function delete_incart($user_id){
         $this->db->where('user_id', $user_id);
         return $this->db->delete('incart');
+    }
+    
+    public function get_order_list(){
+        $this->db->select('*');
+        $this->db->from('active_orders');
+        $this->db->order_by('order_id');
+        
+        $query = $this->db->get();
+        $result = $query->result();
+        
+        return $result;
+    }
+    
+    public function get_order_helper_list($order_id){
+        $this->db->select('*');
+        $this->db->from('order_helper');
+        $this->db->where('order_id',$order_id);
+        
+        $query = $this->db->get();
+        $result = $query->result();
+        
+        return $result;
     }
 }

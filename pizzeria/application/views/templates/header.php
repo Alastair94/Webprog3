@@ -11,6 +11,7 @@
                 <?php if($_SESSION['logged_in']['user_role'] == "ADMIN") : ?>
                     <a class="navbar-brand" style="color: red" href="<?php echo base_url(); ?>Admin_Reg_Ctrl">Manage Users</a>
                     <a class="navbar-brand" style="color: red" href="<?php echo base_url(); ?>Pizza_Ctrl">Add new Pizza</a>
+                    <a class="navbar-brand" style="color: red" href="<?php echo base_url(); ?>Active_Order_Ctrl">Active orders</a>
                 <?php endif; ?>
             <?php else : ?>
                 <div class="collapse navbar-collapse" id="myNavbar">
